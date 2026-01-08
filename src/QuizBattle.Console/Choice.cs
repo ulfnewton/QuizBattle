@@ -2,11 +2,13 @@
 {
     public class Choice
     {
-        public Choice(string option)
+        public Choice(string code, string option)
         {
+            Code = code;
             Option = option;
         }
 
+        public string Code { get; }
         public string Option { get; }
     }
 }

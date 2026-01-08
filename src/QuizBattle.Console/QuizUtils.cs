@@ -31,9 +31,9 @@ public class QuizUtils
     public static void SeedQuestions()
     {
         Choice[] choices = {
-                new Choice("Två ben"),
-                new Choice("Tre ben"),
-                new Choice("Fyra ben")
+                new Choice("Q1.1", "Två ben"),
+                new Choice("Q1.2", "Tre ben"),
+                new Choice("Q1.3","Fyra ben")
         };
         _questions.Add(new Question(choices));
     }

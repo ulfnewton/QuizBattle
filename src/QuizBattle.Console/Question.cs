@@ -2,11 +2,12 @@
 
 public  class Question
 {
-    public Question(Choice[] choices)
+    public Question(Choice[] choices, string correctAnswerCode)
     {
         Choices = choices.ToList();
+        CorrectAnswerCode = correctAnswerCode;
     }
 
     public List<Choice> Choices { get; }
-    public Choice CorrectAnswer { get; }
+    public string CorrectAnswerCode { get; }
 }
