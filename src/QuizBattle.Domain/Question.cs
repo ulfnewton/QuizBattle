@@ -1,4 +1,5 @@
 ﻿
+
 namespace QuizBattle.Domain;
 
 public  class Question
@@ -16,6 +17,9 @@ public  class Question
     public string Text { get; }
     public List<Choice> Choices { get; }
     public string CorrectAnswerCode { get; }
+
+    public bool IsCorrect(string selectedChoiceCode)
+        => string.Equals(selectedChoiceCode, CorrectAnswerCode, StringComparison.OrdinalIgnoreCase);
 
     private void EnsureValid()
     {
