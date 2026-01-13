@@ -32,9 +32,9 @@ namespace QuizBattle.Console
 
             var questions = _repository.GetAll();
 
-            if (count >= questions.Count)
+            if (count > questions.Count)
             {
-                throw new ArgumentOutOfRangeException(nameof(count), "Count must be less than the total number of questions.");
+                throw new ArgumentOutOfRangeException(nameof(count), "Count must be less than or equal the total number of questions.");
             }
 
             return questions
