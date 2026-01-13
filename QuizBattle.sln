@@ -9,8 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizBattle.Console", "src\Q
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{DF516102-7CCD-4543-9FD0-F9CF2210B23D}"
 	ProjectSection(SolutionItems) = preProject
-		TODO-2026-01-08.md = TODO-2026-01-08.md
-		TODO-2026-01-09.md = TODO-2026-01-09.md
+		CHANGELOG.md = CHANGELOG.md
+		docs\TODO-2026-01-08.md = docs\TODO-2026-01-08.md
+		docs\TODO-2026-01-09.md = docs\TODO-2026-01-09.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizBattle.Domain", "src\QuizBattle.Domain\QuizBattle.Domain.csproj", "{FAC7D063-2F6F-4D27-B5E4-F64E767BACB6}"
