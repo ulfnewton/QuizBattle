@@ -43,12 +43,14 @@ public class QuizSession
 
     public void SubmitAnswer(Question question, string choiceCode, DateTime answeredAtUtc)
     {
-        // Beteende + validering
+        // Här implementeras beteende och validering.
+        // Exempel: kontrollera att sessionen inte är avslutad,
+        // att svaret inte redan finns och att tiden är giltig.
     }
 
     public void Finish(DateTime finishedAtUtc)
     {
-        // Idempotent avslut
+        // Idempotent avslut: sätt FinishedAtUtc om den inte redan är satt.
     }
 }
 ```
@@ -57,6 +59,7 @@ public class QuizSession
 
 - Lägga `Console.WriteLine` eller HTTP‑statuskoder i Domain.
 - Hoppa över `EnsureValid()` i konstruktorer/komplexa metoder.
+- Domain ska aldrig referera IQuestionRepository eller andra interfaces – datalagring är inte Domainens ansvar.
 
 ## Testning (överkurs)
 

@@ -11,8 +11,7 @@
 
 ```mermaid
 flowchart LR
-    P[Presenter
-ConsoleQuestionPresenter] --> S[ISessionService]
+    P[Presenter\nConsoleQuestionPresenter] --> S[ISessionService]
     P --> Q[IQuestionService]
     S --> H[Handlers]
     Q --> Repo[IQuestionRepository]
@@ -31,18 +30,27 @@ ConsoleQuestionPresenter] --> S[ISessionService]
 ## Exempel (förenklad loop)
 
 ```csharp
+// Enkel loop som visar hur presenter + sessionService kan användas
 var presenter = new ConsoleQuestionPresenter();
 var start = await sessionService.StartAsync(3);
 int asked = 0, score = 0;
 foreach (var q in start.Questions)
 {
     asked++;
-    presenter.DisplayQuestion(q, asked);
+    presenter.DisplayQuestion(q, asked); // Visa fråga
+
+    // Läs användarens val (1..n)
     var pick = presenter.PromptForAnswer(q);
+
+    // Hämta koden för valt svar
     var code = q.GetChoiceAt(pick - 1).Code;
+
+    // Anropa application för att registrera svaret
     var res = await sessionService.AnswerAsync(start.SessionId, q.Code, code);
     if (res.IsCorrect) score++;
 }
+
+// Avsluta sessionen och visa poäng
 var fin = await sessionService.FinishAsync(start.SessionId);
 Console.WriteLine($"Poäng: {fin.Score}/{fin.AnsweredCount}");
 ```

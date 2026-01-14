@@ -1,7 +1,7 @@
 ﻿
 # 🧩 Infrastructure‑lagret
 
-**Syfte:** Implementera **ports** från Application‑lagret (adapters) – t.ex. repositories och klocka. Utbytbart mot andra tekniker (EF Core, Redis, etc.).
+**Syfte:** Implementera **ports** från Application‑lagret (adapters) – t.ex. repositories. Utbytbart mot andra tekniker (EF Core, Redis, etc.).
 
 ## Översikt
 
