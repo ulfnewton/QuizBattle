@@ -10,12 +10,12 @@ public sealed record StartQuizCommand(int QuestionCount, string? Category = null
 public sealed record StartQuizResponse(Guid SessionId, IReadOnlyList<Question> Questions);
 
 // Handler: orkestrerar flödet. Injektera portar och IClock för testbar tid.
-public sealed class StartQuizHandler
+public sealed class StartQuizResult
 {
     private readonly IQuestionRepository _questions;
     private readonly ISessionRepository _sessions;
 
-    public StartQuizHandler(IQuestionRepository q, ISessionRepository s)
+    public StartQuizResult(IQuestionRepository q, ISessionRepository s)
     {
         _questions = q;
         _sessions = s;
