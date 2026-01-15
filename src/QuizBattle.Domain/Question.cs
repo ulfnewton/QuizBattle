@@ -1,9 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace QuizBattle.Domain
+﻿namespace QuizBattle.Domain
 {
     public class Question
     {
