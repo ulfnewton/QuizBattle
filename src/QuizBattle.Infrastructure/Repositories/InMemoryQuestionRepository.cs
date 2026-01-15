@@ -1,7 +1,4 @@
-﻿using QuizBattle.Application.Interfaces;
-using QuizBattle.Domain;
-
-namespace QuizBattle.Infrastructure.Repositories
+﻿namespace QuizBattle.Infrastructure.Repositories
 {
     /// <summary>
     /// In-memory frågerepository. Används temporärt i API/Console.

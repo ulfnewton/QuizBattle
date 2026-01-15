@@ -1,10 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-using QuizBattle.Application.Extensions;
-using QuizBattle.Application.Interfaces;
-using QuizBattle.Application.Services;
-using QuizBattle.Console.Extensions;
-using QuizBattle.Console.Presentation;
-using QuizBattle.Infrastructure.Extensions;
 
 const int numberOfQuestions = 3;
 
