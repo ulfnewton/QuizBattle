@@ -1,7 +1,4 @@
-﻿
-using System;
-
-namespace QuizBattle.Domain
+﻿namespace QuizBattle.Domain
 {
     [Serializable]
     public class DomainException : Exception

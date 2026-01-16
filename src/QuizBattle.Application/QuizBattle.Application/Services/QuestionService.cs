@@ -1,7 +1,4 @@
-﻿using QuizBattle.Application.Interfaces;
-using QuizBattle.Domain;
-
-namespace QuizBattle.Application.Services
+﻿namespace QuizBattle.Application.Services
 {
     /// <summary>
     /// Tjänst för att hämta frågor via IQuestionRepository.

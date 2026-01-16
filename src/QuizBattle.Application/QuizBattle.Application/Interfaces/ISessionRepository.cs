@@ -1,5 +1,4 @@
-﻿using QuizBattle.Domain;
-namespace QuizBattle.Application.Interfaces
+﻿namespace QuizBattle.Application.Interfaces
 {
     /// <summary>
     /// Port för att lagra/hämta QuizSession-aggregatet.

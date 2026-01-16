@@ -1,9 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-using QuizBattle.Application.Interfaces;
-using QuizBattle.Infrastructure.Repositories;
-
-namespace QuizBattle.Infrastructure.Extensions
+﻿namespace QuizBattle.Infrastructure.Extensions
 {
     public static class InfrastructureExtensions
     {

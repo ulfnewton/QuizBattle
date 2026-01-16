@@ -1,6 +1,4 @@
-﻿using QuizBattle.Domain;
-
-namespace QuizBattle.Application.Interfaces
+﻿namespace QuizBattle.Application.Interfaces
 {
     public interface IQuestionService
     {

@@ -1,6 +1,4 @@
-﻿using QuizBattle.Domain;
-
-namespace QuizBattle.Console.Presentation
+﻿namespace QuizBattle.Console.Presentation
 {
     /// <summary>
     /// Console-specifik presenter som ansvarar för att

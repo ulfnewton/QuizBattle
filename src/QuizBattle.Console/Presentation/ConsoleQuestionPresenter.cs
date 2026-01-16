@@ -1,6 +1,4 @@
-﻿using QuizBattle.Domain;
-
-namespace QuizBattle.Console.Presentation
+﻿namespace QuizBattle.Console.Presentation
 {
     /// <summary>
     /// Ren Console-implementation som skriver/läser via System.Console.

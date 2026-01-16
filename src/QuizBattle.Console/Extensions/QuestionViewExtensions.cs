@@ -1,5 +1,3 @@
-using QuizBattle.Domain;
-
 namespace QuizBattle.Console.Extensions
 {
     /// <summary>
