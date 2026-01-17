@@ -4,5 +4,6 @@ public class FinishQuizResult
 {
 	public FinishQuizResult()
 	{
-	}
+        // Only outdata?
+    }
 }

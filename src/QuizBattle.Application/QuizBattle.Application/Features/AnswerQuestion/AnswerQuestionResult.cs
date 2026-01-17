@@ -4,5 +4,6 @@ public class AnswerQuestionResult
 {
 	public AnswerQuestionResult()
 	{
+		// 
 	}
 }
