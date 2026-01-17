@@ -18,25 +18,31 @@ public sealed class StartQuizHandler
        _sessionRepository = sessionRepository;
    }
 
+   // Metod för att hantera StartQuizCommand och starta en ny quiz-session
    public async Task<StartQuizResult> Handle(
        StartQuizCommand command,
        CancellationToken ct = default)
    {
+       // Validera att QuestionCount är större än noll
        if (command.QuestionCount <= 0)
        {
            throw new ArgumentException(nameof(command.QuestionCount), "QuestionCount måste vara större än noll.");
        }
        
+       // Hämta slumpmässiga frågor baserat på de angivna kriterierna i kommandot
        var questions = await _questionRepository.GetRandomAsync(
            category: command.Category,
            difficulty: command.Difficulty,
            count: command.QuestionCount,
            ct: ct);
 
+       // Skapa en ny quiz-session med det angivna antalet frågor
        var session = QuizSession.Create(command.QuestionCount);
        
+       // Spara den nya quiz-sessionen i session-repositoryt
        await _sessionRepository.SaveAsync(session, ct);
        
+       // Returnera resultatet av den startade quiz-sessionen
        return new StartQuizResult(session.Id, questions);
    }
    

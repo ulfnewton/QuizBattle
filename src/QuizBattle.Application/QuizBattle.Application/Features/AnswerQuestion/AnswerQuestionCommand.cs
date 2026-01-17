@@ -1,6 +1,5 @@
 ﻿namespace QuizBattle.Application.Features.AnswerQuestion;
 
-public class AnswerQuestionCommand
-{
+public sealed record AnswerQuestionCommand(Guid SessionId, string QuestionCode, string SelectedChoiceCode);
+
     
-}
