@@ -1,6 +1,5 @@
 ﻿namespace QuizBattle.Application.Features.FinishSession;
 
-public class FinishQuizResult
-{
+public sealed record FinishQuizResult(int TotalQuestions, int CorrectAnswers, int Score);
+
     
-}

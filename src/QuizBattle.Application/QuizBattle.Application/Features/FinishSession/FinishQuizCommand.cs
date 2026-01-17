@@ -1,6 +1,3 @@
 ﻿namespace QuizBattle.Application.Features.FinishSession;
 
-public class FinishQuizCommand
-{
-    
-}
+public sealed record FinishQuizCommand(Guid sessionId);
