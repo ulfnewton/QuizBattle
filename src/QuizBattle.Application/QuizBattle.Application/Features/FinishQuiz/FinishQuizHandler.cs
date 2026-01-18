@@ -14,7 +14,7 @@ public sealed class FinishQuizHandler
     }
 
     // Handle the command to finish the quiz
-     public async Task<FinishQuizResult> HandleAsync(FinishQuizCommand command, CancellationToken ct)
+     public async Task<FinishQuizResult> Handle(FinishQuizCommand command, CancellationToken ct)
      {
         var session = await _sessionRepository.GetByIdAsync(command.SessionId) ?? throw new ArgumentException("Quiz session not found."); // Retrieve session else throw
 

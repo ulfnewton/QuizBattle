@@ -6,6 +6,8 @@ public sealed class FinishQuizResult
 {
     public int TotalScore { get; }
     public int TotalQuestions { get; }
+    public object Score { get; set; }
+    public object AnsweredCount { get; set; }
 
     public FinishQuizResult(int totalScore, int totalQuestions)
 	{

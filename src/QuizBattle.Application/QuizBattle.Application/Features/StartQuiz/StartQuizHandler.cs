@@ -1,44 +1,42 @@
-﻿using System;
-using QuizBattle.Application.Interfaces;
+﻿using QuizBattle.Application.Interfaces;
 using QuizBattle.Domain;
 
 namespace QuizBattle.Application.Features.StartSession;
 
 public sealed class StartQuizHandler
 {
-    // Dependencies
-    private readonly IQuestionRepository _questionRepository;// Fix IQuestionRespository to the correct one
+    private readonly IQuestionRepository _questionRepository;
     private readonly ISessionRepository _sessionRepository;
 
-    // Constructor with dependencies
-    public StartQuizHandler(IQuestionRepository questionRepository, ISessionRepository sessionRepository)
-	{
-        // Orcest the flow to start a new quiz session?
+    public StartQuizHandler(
+        IQuestionRepository questionRepository,
+        ISessionRepository sessionRepository)
+    {
         _questionRepository = questionRepository;
         _sessionRepository = sessionRepository;
     }
 
-    // Handle the command to start a new quiz
-    public async Task<StartQuizResult> HandleAsync(StartQuizCommand command, CancellationToken ct) //Change to async
+    // Name + signature must match what SessionService calls
+    public async Task<StartQuizResult> Handle(StartQuizCommand command, CancellationToken ct)
     {
         if (command.NumberOfQuestions <= 0)
         {
-           throw new ArgumentException("Number of questions must be greater than zero."); // Validate input
+            throw new ArgumentException("Number of questions must be greater than zero.");
         }
 
-        // Retrieve random questions for the quiz - adjust method call as needed
-        var questions = await _questionRepository
-            .GetRandomAsync(category: null,
+        // Get domain questions
+        var questions = await _questionRepository.GetRandomAsync(
+            category: null,
             difficulty: null,
             count: command.NumberOfQuestions,
             ct: CancellationToken.None);
-            
-        // Start a new quiz session with the selected questions
-        var session = QuizSession.Create(command.NumberOfQuestions); // Renamed to Create for clarity and so it connects to the factory method in QuizSession
+
+        // Create session with questions
+        var session = QuizSession.Create(command.NumberOfQuestions);
 
         await _sessionRepository.SaveAsync(session);
 
-        // Return the result with session ID and question codes
-        return new StartQuizResult(session.Id, questions.Select(q => q.Code).ToList());
+        // Return domain questions to Console
+        return new StartQuizResult(session.Id, questions);
     }
 }

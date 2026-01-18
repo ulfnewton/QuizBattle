@@ -1,13 +1,11 @@
-﻿using System;
-using QuizBattle.Application.Interfaces;
+﻿using QuizBattle.Application.Interfaces;
 
 namespace QuizBattle.Application.Features.AnswerQuestion;
+
 public sealed class AnswerQuestionHandler
 {
-    // Repository for quiz sessions
-    private readonly IQuestionRepository _questionRepository;
-    // Repository for questions + added session repository
     private readonly ISessionRepository _sessionRepository;
+    private readonly IQuestionRepository _questionRepository;
 
     public AnswerQuestionHandler(
         ISessionRepository sessionRepository,
@@ -17,31 +15,26 @@ public sealed class AnswerQuestionHandler
         _questionRepository = questionRepository;
     }
 
-    public async Task<AnswerQuestionResult> HandleAsync(AnswerQuestionCommand command, CancellationToken ct)
+    public async Task<AnswerQuestionResult> Handle(
+        AnswerQuestionCommand command,
+        CancellationToken ct)
     {
-        // Load session
         var session = await _sessionRepository.GetByIdAsync(command.SessionId)
-            ?? throw new ArgumentException("Quiz session not found."); // Session must exist
+            ?? throw new ArgumentException("Quiz session not found.");
 
-        // Load question
         var question = await _questionRepository.GetByCodeAsync(
             command.QuestionCode,
-            CancellationToken.None)
-            ?? throw new ArgumentException("Question not found."); // Question must exist
+            ct)
+            ?? throw new ArgumentException("Question not found.");
 
-        // Submit answer (DOMAIN decides correctness)
         session.SubmitAnswer(
             question,
             command.ChoiceCode,
             DateTime.UtcNow);
 
-        // Await saving updated session state
         await _sessionRepository.UpdateAsync(session);
 
-        // Determine correctness from domain state
-        var isCorrect = session.Answers
-            .Last()
-            .IsCorrect;
+        var isCorrect = session.Answers.Last().IsCorrect;
 
         return new AnswerQuestionResult(isCorrect);
     }
