@@ -1,9 +1,13 @@
 ﻿using System;
 
-public class AnswerQuestionResult
+public sealed class AnswerQuestionResult
 {
-	public AnswerQuestionResult()
+    // Property indicating if the answer was correct
+    public bool IsCorrect { get; }
+
+    public AnswerQuestionResult(bool isCorrect)
 	{
-		// 
-	}
+        // Assign the correctness of the answer to the property
+        IsCorrect = isCorrect;
+    }
 }
