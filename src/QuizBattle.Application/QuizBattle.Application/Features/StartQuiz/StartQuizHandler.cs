@@ -13,9 +13,7 @@ namespace QuizBattle.Application.Features.StartQuiz
         private readonly IQuestionRepository _questions;
         private readonly ISessionRepository _sessions;
 
-        public StartQuizHandler(
-            IQuestionRepository questions,
-            ISessionRepository sessions)
+        public StartQuizHandler(IQuestionRepository questions, ISessionRepository sessions)
         {
             _questions = questions;
             _sessions = sessions;
