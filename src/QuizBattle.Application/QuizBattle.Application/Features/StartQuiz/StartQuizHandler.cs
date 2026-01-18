@@ -1,4 +1,5 @@
 ﻿using System;
+using QuizBattle.Domain;
 
 public sealed class StartQuizHandler
 {
@@ -7,7 +8,7 @@ public sealed class StartQuizHandler
     private readonly IQuizSessionRepository _sessionRepository;
 
     // Constructor with dependencies
-    public StartQuizHandler(IQuestionRepository questionRepository, IQuizSessionRepository sessionRepository))
+    public StartQuizHandler(IQuestionRepository questionRepository, IQuizSessionRepository sessionRepository)
 	{
         // Orcest the flow to start a new quiz session?
         _questionRepository = questionRepository;
@@ -15,7 +16,7 @@ public sealed class StartQuizHandler
     }
 
     // Handle the command to start a new quiz
-    public StartQuizResult Handle(StartQuizCommand command)
+    public async Task<StartQuizResult> HandleAsync(StartQuizCommand command) //Change to async
     {
         if (command.NumberOfQuestions <= 0)
         {
@@ -24,18 +25,14 @@ public sealed class StartQuizHandler
 
         // Retrieve random questions for the quiz
         var questions = _questionRepository
-            .GetRandom(command.NumberOfQuestions)
-            .ToList();
-
+            .GetRandomAsync(command.NumberOfQuestions);
+            
         // Start a new quiz session with the selected questions
-        var session = QuizSession.StartNew(questions);
+        var session = QuizSession.Create(questions); // Renamed to Create for clarity and so it connects to the factory method in QuizSession
 
-        _sessionRepository.Save(session);
+        await _sessionRepository.SaveAsync(session);
 
         // Return the result with session ID and question codes
-        return new StartQuizResult(
-            session.Id,
-            questions.Select(q => q.Code).ToList()
-        );
+        return new StartQuizResult(session.Id, questions.Select(q => q.Code).ToList());
     }
 }

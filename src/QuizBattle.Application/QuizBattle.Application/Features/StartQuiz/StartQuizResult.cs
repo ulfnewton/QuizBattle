@@ -2,13 +2,13 @@
 
 public sealed class StartQuizResult
 {
-    public Guid QuizSessionId { get; }
+    public Guid SessionId { get; }
     public IReadOnlyList<string> QuestionCodes { get; }
 
     public StartQuizResult(Guid sessionId, IReadOnlyList<string> questionCodes)
 	{
         // Only outdata?
-        QuizSessionId = sessionId;
+        SessionId = sessionId;
         QuestionCodes = questionCodes;
     }
 }

@@ -11,9 +11,9 @@ public sealed class AnswerQuestionHandler
         _sessionRepository = sessionRepository;
     }
 
-    public AnswerQuestionResult Handle(AnswerQuestionCommand command)
+    public async Task <AnswerQuestionResult> HandleAsync(AnswerQuestionCommand command)
     {
-        var session = _sessionRepository.GetById(command.SessionId) ?? throw new ArgumentException("Quiz session not found."); // Retrieve session else throw
+        var session = await _sessionRepository.GetByIdAsync(command.SessionId) ?? throw new ArgumentException("Quiz session not found."); // Retrieve session else throw
 
         // Submit the answer and get correctness
         var isCorrect = session.SubmitAnswer(
@@ -21,7 +21,7 @@ public sealed class AnswerQuestionHandler
             command.ChoiceCode
         );
 
-        _sessionRepository.Save(session);
+        await _sessionRepository.Save(session);
 
         // Return the result
         return new AnswerQuestionResult(isCorrect);

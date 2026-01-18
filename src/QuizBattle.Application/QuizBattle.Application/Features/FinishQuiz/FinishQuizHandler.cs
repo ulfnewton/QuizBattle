@@ -11,18 +11,16 @@ public sealed class FinishQuizHandler
     }
 
     // Handle the command to finish the quiz
-    public FinishQuizResult Handle(FinishQuizCommand command)
-    {
-        var session = _sessionRepository.GetById(command.SessionId) ?? throw new ArgumentException("Quiz session not found."); // Retrieve session else throw
+     public async Task<FinishQuizResult> HandleAsync(FinishQuizCommand command)
+     {
+        var session = await _sessionRepository.GetByIdAsync(command.SessionId) ?? throw new ArgumentException("Quiz session not found."); // Retrieve session else throw
 
-        session.Finish(); // Finish the quiz session
+        // Finish the quiz session
+        session.Finish();
 
-        _sessionRepository.Save(session); // Persist changes
+        // Save the updated session state
+        await _sessionRepository.SaveAsync(session);
 
-        // Return the result
-        return new FinishQuizResult(
-            session.Score,
-            session.AnsweredQuestionsCount
-        );
-    }
+        return new FinishQuizResult(session.Score, session.AnsweredQuestionsCount);
+     }
 }
