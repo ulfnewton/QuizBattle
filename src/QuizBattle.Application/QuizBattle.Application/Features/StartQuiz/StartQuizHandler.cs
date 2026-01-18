@@ -2,6 +2,8 @@
 using QuizBattle.Application.Interfaces;
 using QuizBattle.Domain;
 
+namespace QuizBattle.Application.Features.StartSession;
+
 public sealed class StartQuizHandler
 {
     // Dependencies
@@ -17,7 +19,7 @@ public sealed class StartQuizHandler
     }
 
     // Handle the command to start a new quiz
-    public async Task<StartQuizResult> HandleAsync(StartQuizCommand command) //Change to async
+    public async Task<StartQuizResult> HandleAsync(StartQuizCommand command, CancellationToken ct) //Change to async
     {
         if (command.NumberOfQuestions <= 0)
         {

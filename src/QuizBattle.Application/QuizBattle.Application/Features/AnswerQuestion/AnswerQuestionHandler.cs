@@ -1,6 +1,7 @@
 ﻿using System;
 using QuizBattle.Application.Interfaces;
 
+namespace QuizBattle.Application.Features.AnswerQuestion;
 public sealed class AnswerQuestionHandler
 {
     // Repository for quiz sessions
@@ -16,7 +17,7 @@ public sealed class AnswerQuestionHandler
         _questionRepository = questionRepository;
     }
 
-    public async Task<AnswerQuestionResult> HandleAsync(AnswerQuestionCommand command)
+    public async Task<AnswerQuestionResult> HandleAsync(AnswerQuestionCommand command, CancellationToken ct)
     {
         // Load session
         var session = await _sessionRepository.GetByIdAsync(command.SessionId)

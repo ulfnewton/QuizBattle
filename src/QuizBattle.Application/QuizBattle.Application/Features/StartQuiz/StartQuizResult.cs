@@ -1,5 +1,7 @@
 ﻿using System;
 
+namespace QuizBattle.Application.Features.StartSession;
+
 public sealed class StartQuizResult
 {
     public Guid SessionId { get; }

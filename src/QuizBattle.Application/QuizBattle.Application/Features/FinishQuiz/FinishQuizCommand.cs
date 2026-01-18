@@ -1,5 +1,7 @@
 ﻿using System;
 
+namespace QuizBattle.Application.Features.FinishSession;
+
 public sealed class FinishQuizCommand
 {
     public Guid SessionId { get; }

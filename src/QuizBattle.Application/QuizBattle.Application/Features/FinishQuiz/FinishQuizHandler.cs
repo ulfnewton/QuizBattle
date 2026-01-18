@@ -1,6 +1,8 @@
 ﻿using System;
 using QuizBattle.Application.Interfaces;
 
+namespace QuizBattle.Application.Features.FinishSession;
+
 public sealed class FinishQuizHandler
 {
     // Dependencies
@@ -12,7 +14,7 @@ public sealed class FinishQuizHandler
     }
 
     // Handle the command to finish the quiz
-     public async Task<FinishQuizResult> HandleAsync(FinishQuizCommand command)
+     public async Task<FinishQuizResult> HandleAsync(FinishQuizCommand command, CancellationToken ct)
      {
         var session = await _sessionRepository.GetByIdAsync(command.SessionId) ?? throw new ArgumentException("Quiz session not found."); // Retrieve session else throw
 

@@ -1,5 +1,6 @@
 ﻿using System;
 
+namespace QuizBattle.Application.Features.AnswerQuestion;
 public sealed class AnswerQuestionCommand
 {
     public Guid SessionId { get; }

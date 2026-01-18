@@ -1,5 +1,6 @@
 ﻿using System;
 
+namespace QuizBattle.Application.Features.AnswerQuestion;
 public sealed class AnswerQuestionResult
 {
     // Property indicating if the answer was correct
