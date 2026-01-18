@@ -1,11 +1,12 @@
 ﻿using System;
+using QuizBattle.Application.Interfaces;
 
 public sealed class AnswerQuestionHandler
 {
     // Repository for quiz sessions
-    private readonly IQuizSessionRepository _sessionRepository;
+    private readonly IQuestionRepository _sessionRepository;
 
-    public AnswerQuestionHandler(IQuizSessionRepository sessionRepository)
+    public AnswerQuestionHandler(IQuestionRepository sessionRepository)
 	{
         // Orcest the flow to answer a question in a quiz session?
         _sessionRepository = sessionRepository;

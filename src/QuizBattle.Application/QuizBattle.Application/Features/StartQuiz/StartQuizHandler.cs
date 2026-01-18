@@ -1,14 +1,15 @@
 ﻿using System;
+using QuizBattle.Application.Interfaces;
 using QuizBattle.Domain;
 
 public sealed class StartQuizHandler
 {
     // Dependencies
-    private readonly IQuestionRepository _questionRepository;
-    private readonly IQuizSessionRepository _sessionRepository;
+    private readonly IQuestionRepository _questionRepository;// Fix IQuestionRespository to the correct one
+    private readonly ISessionRepository _sessionRepository;
 
     // Constructor with dependencies
-    public StartQuizHandler(IQuestionRepository questionRepository, IQuizSessionRepository sessionRepository)
+    public StartQuizHandler(IQuestionRepository questionRepository, ISessionRepository sessionRepository)
 	{
         // Orcest the flow to start a new quiz session?
         _questionRepository = questionRepository;
@@ -23,12 +24,15 @@ public sealed class StartQuizHandler
            throw new ArgumentException("Number of questions must be greater than zero."); // Validate input
         }
 
-        // Retrieve random questions for the quiz
-        var questions = _questionRepository
-            .GetRandomAsync(command.NumberOfQuestions);
+        // Retrieve random questions for the quiz - adjust method call as needed
+        var questions = await _questionRepository
+            .GetRandomAsync(category: null,
+            difficulty: null,
+            count: command.NumberOfQuestions,
+            ct: CancellationToken.None);
             
         // Start a new quiz session with the selected questions
-        var session = QuizSession.Create(questions); // Renamed to Create for clarity and so it connects to the factory method in QuizSession
+        var session = QuizSession.Create(command.NumberOfQuestions); // Renamed to Create for clarity and so it connects to the factory method in QuizSession
 
         await _sessionRepository.SaveAsync(session);
 
