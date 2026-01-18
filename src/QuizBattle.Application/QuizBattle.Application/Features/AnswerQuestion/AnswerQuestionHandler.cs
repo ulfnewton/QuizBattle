@@ -4,27 +4,44 @@ using QuizBattle.Application.Interfaces;
 public sealed class AnswerQuestionHandler
 {
     // Repository for quiz sessions
-    private readonly IQuestionRepository _sessionRepository;
+    private readonly IQuestionRepository _questionRepository;
+    // Repository for questions + added session repository
+    private readonly ISessionRepository _sessionRepository;
 
-    public AnswerQuestionHandler(IQuestionRepository sessionRepository)
-	{
-        // Orcest the flow to answer a question in a quiz session?
+    public AnswerQuestionHandler(
+        ISessionRepository sessionRepository,
+        IQuestionRepository questionRepository)
+    {
         _sessionRepository = sessionRepository;
+        _questionRepository = questionRepository;
     }
 
-    public async Task <AnswerQuestionResult> HandleAsync(AnswerQuestionCommand command)
+    public async Task<AnswerQuestionResult> HandleAsync(AnswerQuestionCommand command)
     {
-        var session = await _sessionRepository.GetByIdAsync(command.SessionId) ?? throw new ArgumentException("Quiz session not found."); // Retrieve session else throw
+        // Load session
+        var session = await _sessionRepository.GetByIdAsync(command.SessionId)
+            ?? throw new ArgumentException("Quiz session not found."); // Session must exist
 
-        // Submit the answer and get correctness
-        var isCorrect = session.SubmitAnswer(
+        // Load question
+        var question = await _questionRepository.GetByCodeAsync(
             command.QuestionCode,
-            command.ChoiceCode
-        );
+            CancellationToken.None)
+            ?? throw new ArgumentException("Question not found."); // Question must exist
 
-        await _sessionRepository.Save(session);
+        // Submit answer (DOMAIN decides correctness)
+        session.SubmitAnswer(
+            question,
+            command.ChoiceCode,
+            DateTime.UtcNow);
 
-        // Return the result
+        // Await saving updated session state
+        await _sessionRepository.UpdateAsync(session);
+
+        // Determine correctness from domain state
+        var isCorrect = session.Answers
+            .Last()
+            .IsCorrect;
+
         return new AnswerQuestionResult(isCorrect);
     }
 }
