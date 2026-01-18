@@ -8,6 +8,9 @@ using QuizBattle.Infrastructure.Extensions;
 
 // do i need to put async here? and await in front of main?
 // Fix names
+// Test
+Console.WriteLine("APP STARTED");
+Console.ReadKey();
 
 const int numberOfQuestions = 3;
 
