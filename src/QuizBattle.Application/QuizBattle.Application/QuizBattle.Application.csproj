@@ -15,10 +15,4 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions\Features\AnswerQuestion\" />
-    <Folder Include="Extensions\Features\FinishSession\" />
-    <Folder Include="Extensions\Features\StartSession\" />
-  </ItemGroup>
-
 </Project>

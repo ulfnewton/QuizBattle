@@ -10,4 +10,5 @@ namespace QuizBattle.Application.Interfaces
         Task<FinishQuizResult> FinishAsync(Guid sessionId, CancellationToken ct = default);
         Task<StartQuizResult> StartAsync(int questionCount, string? category = null, int? difficulty = null, CancellationToken ct = default);
     }
+    
 }
