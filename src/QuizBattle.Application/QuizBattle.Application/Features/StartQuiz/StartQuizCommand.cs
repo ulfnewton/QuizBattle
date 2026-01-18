@@ -6,8 +6,7 @@ public sealed class StartQuizCommand
 {
     private int? difficulty;
 
-    // sealed class?
-    public int NumberOfQuestions { get; } // Varför bara get?
+    public int NumberOfQuestions { get; }
 
     public StartQuizCommand(int numberofQuestions, string? category)
 	{

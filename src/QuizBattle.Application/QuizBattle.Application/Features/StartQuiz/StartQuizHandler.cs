@@ -21,7 +21,7 @@ public sealed class StartQuizHandler
     {
         if (command.NumberOfQuestions <= 0)
         {
-            throw new ArgumentException("Number of questions must be greater than zero.");
+            throw new ArgumentException("Number of questions must be greater than zero."); // Validate input
         }
 
         // Get domain questions
