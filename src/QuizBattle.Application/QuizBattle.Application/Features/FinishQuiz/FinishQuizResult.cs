@@ -15,5 +15,7 @@ public sealed class FinishQuizResult
         // Assign the total score and total questions to the properties
         TotalScore = totalScore;
         TotalQuestions = totalQuestions;
+        Score = 0; // Initialize to a non-null value
+        AnsweredCount = 0; // Initialize to a non-null value
     }
 }
