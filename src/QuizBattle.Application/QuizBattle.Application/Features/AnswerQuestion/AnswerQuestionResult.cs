@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace QuizBattle.Application.Features.AnswerQuestion
 {
-    internal class AnswerQuestionResult
-    {
-    }
+    public sealed record AnswerQuestionResult(
+        bool IsCorrect
+    );
 }

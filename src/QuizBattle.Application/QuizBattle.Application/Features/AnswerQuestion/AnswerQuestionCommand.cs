@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace QuizBattle.Application.Features.AnswerQuestion
 {
-    internal class AnswerQuestionCommand
-    {
-    }
+    public sealed record AnswerQuestionCommand(
+            Guid SessionId,
+            string QuestionCode,
+            string SelectedChoiceCode
+    );
 }
