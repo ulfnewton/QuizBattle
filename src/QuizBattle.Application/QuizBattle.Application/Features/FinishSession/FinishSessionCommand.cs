@@ -6,7 +6,5 @@ using System.Threading.Tasks;
 
 namespace QuizBattle.Application.Features.FinishSession
 {
-    internal class FinishSessionCommand
-    {
-    }
+    public sealed record FinishSessionCommand(Guid SessionId);
 }
