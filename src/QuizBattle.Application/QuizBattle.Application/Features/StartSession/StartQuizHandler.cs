@@ -21,22 +21,20 @@ namespace QuizBattle.Application.Features.StartSession
 
         public async Task<StartQuizResult> Handle(StartQuizCommand cmd, CancellationToken ct)
         {
-            if (cmd.QuestionCount <= 0)
-            {
-                throw new ArgumentException("Question count must be greater than zero.", nameof(cmd.QuestionCount));
-            }
+            var session = QuizSession.Create(cmd.QuestionCount);
+
+            var category = string.IsNullOrWhiteSpace(cmd.Category) ? null : cmd.Category;
+            var difficulty = cmd.Difficulty;
 
             var questions = await _questions.GetRandomAsync(
-                cmd.Category,
-                cmd.Difficulty,
+                category,
+                difficulty,
                 cmd.QuestionCount,
                 ct);
 
-            var sessionId = Guid.NewGuid();
+            await _sessions.SaveAsync(session, ct);
 
-            var result = new StartQuizResult(sessionId, questions);
-
-            return result;
+            return new StartQuizResult(session.Id, questions);
         }
     }
 }
