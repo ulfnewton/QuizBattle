@@ -17,7 +17,7 @@ namespace QuizBattle.Tests
             // För närvarande finns 3 seedade frågor. Begär 4 => ska kasta.
 
             // använd ThrowsAsync med await för att hantera det förväntade felet
-            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => service.GetRandomQuestionsAsync(4));
+            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => service.GetRandomQuestionsAsync(4));            
         }
     }
 }
