@@ -1,5 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using QuizBattle.Application.Extensions;
+using QuizBattle.Application.Features.AnswerQuestion;
+using QuizBattle.Application.Features.FinishSession;
+using QuizBattle.Application.Features.StartSession;
 using QuizBattle.Application.Interfaces;
 using QuizBattle.Application.Services;
 using QuizBattle.Console.Extensions;
@@ -11,9 +14,12 @@ const int numberOfQuestions = 3;
 // konfigurera dependency injection (DI) in konsol
 var services = new ServiceCollection();
 
-services.AddInfrastructureRepositories()    // Definierad i QuizBattle.Infrastructure
-        .AddApplicationServices()           // Definierad i QuizBattle.Application
-        .AddConsolePresentation();          // Definierad i QuizBattle.Console
+services.AddInfrastructureRepositories() // Definierad i QuizBattle.Infrastructure
+    .AddApplicationServices() // Definierad i QuizBattle.Application
+    .AddConsolePresentation() // Definierad i QuizBattle.Console
+    .AddTransient<StartSessionHandler>()
+    .AddTransient<AnswerQuestionHandler>()
+    .AddTransient<FinishSessionHandler>();
 
 // bygg en service provider
 var provider = services.BuildServiceProvider();
@@ -55,8 +61,8 @@ foreach (var question in start.Questions)
     // Registrera svar i applikationen (handlers via SessionService)
     var answerResult = await sessionService.AnswerAsync(start.SessionId, question.Code, selectedCode);
 
-    System.Console.WriteLine(answerResult.IsCorrect ? "✔ Rätt!" : "✖ Fel.");
-    if (answerResult.IsCorrect) score++;
+    System.Console.WriteLine(answerResult.IsCorrectAnswer ? "✔ Rätt!" : "✖ Fel.");
+    if (answerResult.IsCorrectAnswer) score++;
     System.Console.WriteLine();
 }
 
