@@ -2,7 +2,5 @@ using System;
 
 namespace QuizBattle.Application.Features.FinishSession;
 
-public class FinishQuizCommand
-{
+public sealed record FinishQuizCommand(Guid SessionId);
 
-}

@@ -2,7 +2,5 @@ using System;
 
 namespace QuizBattle.Application.Features.FinishSession;
 
-public class FinishQuizResult
-{
+public sealed record FinishQuizResult(int Score, int AnsweredCount, DateTime FinishedAtUtc);
 
-}

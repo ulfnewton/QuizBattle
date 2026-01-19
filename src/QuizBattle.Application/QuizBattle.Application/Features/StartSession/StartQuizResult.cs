@@ -1,8 +1,6 @@
-using System;
+using QuizBattle.Domain;
 
 namespace QuizBattle.Application.Features.StartSession;
 
-public class StartQuizResult
-{
+public sealed record StartQuizResult(Guid SessionId, IReadOnlyList<Question> Questions);
 
-}
