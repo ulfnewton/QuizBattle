@@ -15,7 +15,13 @@ namespace QuizBattle.Domain
         public int QuestionCount {  get; set; }
         public IList<Answer> Answers { get; } = new List<Answer>();
 
-        public int Score => Answers.Count(a => a.IsCorrect);
+        public int Score
+        {
+            get => Answers.Count(a => a.IsCorrect);
+            set => throw new NotImplementedException();
+        }
+
+        public int QuestionsAnswered { get; set; }
 
         public static QuizSession Create(int count)
         {
