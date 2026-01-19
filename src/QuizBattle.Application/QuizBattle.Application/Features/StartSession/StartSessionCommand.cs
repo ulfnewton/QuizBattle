@@ -6,7 +6,5 @@ using System.Threading.Tasks;
 
 namespace QuizBattle.Application.Features.StartSession
 {
-    internal class StartSessionCommand
-    {
-    }
+    public sealed record StartSessionCommand(int QuestionCount, string? Category = null, int? Difficulty = null);
 }
