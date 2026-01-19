@@ -6,7 +6,5 @@ using System.Threading.Tasks;
 
 namespace QuizBattle.Application.Features.FinishSession
 {
-    internal class FinishQuizResult
-    {
-    }
+    public sealed record FinishQuizResult(int QuestionCount, int AnsweredCount, int IsCorrectCount, int Score);
 }
