@@ -25,17 +25,17 @@ public sealed class FinishQuizHandler
         if (session == null)
             throw new InvalidOperationException($"Session {cmd.SessionId} not found");
 
-        // Markera som avslutad
-        session.FinishedAtUtc = DateTime.UtcNow;
-        
-        await _sessions.SaveAsync(session, ct);
+        // Använd domänmodellens metod för att avsluta sessionen
+        session.Finish(DateTime.UtcNow);
+
+        await _sessions.UpdateAsync(session, ct);
 
         return new FinishQuizResult(
-            session.Id, 
-            session.Score, 
+            session.Id,
+            session.Score,
             session.QuestionCount,
             session.StartedAtUtc,
-            session.FinishedAtUtc.Value
+            session.FinishedAtUtc!.Value
         );
     }
 }

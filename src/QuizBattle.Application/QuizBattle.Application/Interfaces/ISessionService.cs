@@ -1,6 +1,6 @@
-﻿using QuizBattle.Application.Features.AnswerQuestion;
+﻿using QuizBattle.Application.Features;
+using QuizBattle.Application.Features.AnswerQuestion;
 using QuizBattle.Application.Features.FinishSession;
-using QuizBattle.Application.Features.StartSession;
 
 namespace QuizBattle.Application.Interfaces
 {

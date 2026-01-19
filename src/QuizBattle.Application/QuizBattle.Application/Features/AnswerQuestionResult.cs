@@ -33,15 +33,13 @@ public sealed class AnswerQuestionHandler
         if (question == null)
             throw new InvalidOperationException($"Question {cmd.QuestionCode} not found");
 
-        var isCorrect = question.CorrectAnswerCode == cmd.SelectedChoiceCode;
-        
-        // Uppdatera session (detta bör egentligen vara domänlogik)
-        if (isCorrect)
-            session.Score++;
-        session.QuestionsAnswered++;
+        // Använd domänmodellens metod för att registrera svaret
+        session.SubmitAnswer(question, cmd.SelectedChoiceCode, DateTime.UtcNow);
 
-        await _sessions.SaveAsync(session, ct);
+        await _sessions.UpdateAsync(session, ct);
 
-        return new AnswerQuestionResult(isCorrect, session.Score, session.QuestionsAnswered);
+        // Hämta det senaste svaret för att avgöra om det var korrekt
+        var lastAnswer = session.Answers[session.Answers.Count - 1];
+        return new AnswerQuestionResult(lastAnswer.IsCorrect, session.Score, session.Answers.Count);
     }
 }
