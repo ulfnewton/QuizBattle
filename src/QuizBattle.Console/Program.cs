@@ -61,6 +61,8 @@ foreach (var question in start.Questions)
 }
 
 var finished = await sessionService.FinishAsync(start.SessionId);
-System.Console.WriteLine($"Klart! Poäng: {finished.Score}/{finished.AnsweredCount}");
+var answeredCount = finished.QuestionStats.Count;
+
+System.Console.WriteLine($"Klart! Poäng: {finished.TotalScore}/{answeredCount}");
 System.Console.WriteLine("Tryck valfri tangent för att avsluta...");
 System.Console.ReadKey(intercept: true);
