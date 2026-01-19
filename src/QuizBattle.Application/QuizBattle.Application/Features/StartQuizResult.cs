@@ -1,7 +1,7 @@
-using QuizBattle.Domain;
 using QuizBattle.Application.Interfaces;
+using QuizBattle.Domain;
 
-namespace QuizBattle.Application.Features.StartSession;
+namespace QuizBattle.Application.Features;
 
 // Command: enkel DTO som beskriver input för use-caset
 public sealed record StartQuizCommand(int QuestionCount, string? Category = null, int? Difficulty = null);
