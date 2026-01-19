@@ -1,7 +1,6 @@
-﻿using QuizBattle.Application.Features.AnswerQuestion;
-using QuizBattle.Application.Features.FinishSession;
-using QuizBattle.Application.Features.StartSession;
+﻿using QuizBattle.Application.Features;
 using QuizBattle.Application.Interfaces;
+
 
 namespace QuizBattle.Application.Services
 {
@@ -11,43 +10,43 @@ namespace QuizBattle.Application.Services
     /// </summary>
     public sealed class SessionService : ISessionService
     {
-        private readonly StartQuizHandler _start;
-        private readonly AnswerQuestionHandler _answer;
-        private readonly FinishQuizHandler _finish;
+        private readonly StartSession.StartQuizHandler _start;
+        private readonly AnswerQuestion.AnswerQuestionHandler _answer;
+        private readonly FinishSession.FinishQuizHandler _finish;
 
         public SessionService(
-            StartQuizHandler start,
-            AnswerQuestionHandler answer,
-            FinishQuizHandler finish)
+            StartSession.StartQuizHandler start,
+            AnswerQuestion.AnswerQuestionHandler answer,
+            FinishSession.FinishQuizHandler finish)
         {
             _start = start ?? throw new ArgumentNullException(nameof(start));
             _answer = answer ?? throw new ArgumentNullException(nameof(answer));
             _finish = finish ?? throw new ArgumentNullException(nameof(finish));
         }
 
-        public Task<StartQuizResult> StartAsync(
+        public Task<StartSession.StartQuizResponse> StartAsync(
             int questionCount,
             string? category = null,
             int? difficulty = null,
             CancellationToken ct = default)
         {
-            var cmd = new StartQuizCommand(questionCount, category, difficulty);
-            return _start.Handle(cmd, ct);
+            var cmd = new StartSession.StartQuizCommand(questionCount, category, difficulty);
+            return _start.HandleAsync(cmd, ct);
         }
 
-        public Task<AnswerQuestionResult> AnswerAsync(
+        public Task<AnswerQuestion.AnswerQuestionResult> AnswerAsync(
             Guid sessionId,
             string questionCode,
             string selectedChoiceCode,
             CancellationToken ct = default)
         {
-            var cmd = new AnswerQuestionCommand(sessionId, questionCode, selectedChoiceCode);
+            var cmd = new AnswerQuestion.AnswerQuestionCommand(sessionId, questionCode, selectedChoiceCode);
             return _answer.Handle(cmd, ct);
         }
 
-        public Task<FinishQuizResult> FinishAsync(Guid sessionId, CancellationToken ct = default)
+        public Task<FinishSession.FinishQuizResult> FinishAsync(Guid sessionId, CancellationToken ct = default)
         {
-            var cmd = new FinishQuizCommand(sessionId);
+            var cmd = new FinishSession.FinishQuizCommand(sessionId);
             return _finish.Handle(cmd, ct);
         }
     }
