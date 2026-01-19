@@ -11,27 +11,27 @@ namespace QuizBattle.Application.Services
     /// </summary>
     public sealed class SessionService : ISessionService
     {
-        private readonly StartQuizHandler _start;
+        private readonly StartSessionHandler _start;
         private readonly AnswerQuestionHandler _answer;
-        private readonly FinishQuizHandler _finish;
+        private readonly FinishSessionHandler _finish;
 
         public SessionService(
-            StartQuizHandler start,
+            StartSessionHandler start,
             AnswerQuestionHandler answer,
-            FinishQuizHandler finish)
+            FinishSessionHandler finish)
         {
             _start = start ?? throw new ArgumentNullException(nameof(start));
             _answer = answer ?? throw new ArgumentNullException(nameof(answer));
             _finish = finish ?? throw new ArgumentNullException(nameof(finish));
         }
 
-        public Task<StartQuizResult> StartAsync(
+        public Task<StartSessionResult> StartAsync(
             int questionCount,
             string? category = null,
             int? difficulty = null,
             CancellationToken ct = default)
         {
-            var cmd = new StartQuizCommand(questionCount, category, difficulty);
+            var cmd = new StartSessionCommand(questionCount, category, difficulty);
             return _start.Handle(cmd, ct);
         }
 
@@ -45,9 +45,9 @@ namespace QuizBattle.Application.Services
             return _answer.Handle(cmd, ct);
         }
 
-        public Task<FinishQuizResult> FinishAsync(Guid sessionId, CancellationToken ct = default)
+        public Task<FinishSessionResult> FinishAsync(Guid sessionId, CancellationToken ct = default)
         {
-            var cmd = new FinishQuizCommand(sessionId);
+            var cmd = new FinishSessionCommand(sessionId);
             return _finish.Handle(cmd, ct);
         }
     }
