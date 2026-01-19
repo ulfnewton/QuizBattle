@@ -32,19 +32,8 @@ namespace QuizBattle.Application.Features.FinishSession
             await _sessions.UpdateAsync(session, ct);
 
             var answeredCount = session.Answers.Count;
-            var correctCount = session.Score;
-            var incorrectCount = answeredCount - correctCount;
 
-            var finishedAtUtc = session.FinishedAtUtc ?? DateTime.UtcNow;
-
-            return new FinishQuizResult(
-                  session.Id,
-                session.Score,
-                answeredCount,
-                correctCount,
-                incorrectCount,
-                finishedAtUtc
-            ); 
+            return new FinishQuizResult(session.Score, answeredCount); 
         }
     }
 }

@@ -34,14 +34,15 @@ Console.WriteLine("Tryck valfri tangent för att starta...");
 Console.ReadKey(intercept: true);
 Console.WriteLine();
 
-// Hämta slumpvis antal frågor
-var questions = await questionService.GetRandomQuestionsAsync(numberOfQuestions);
-
 // Starta en session via Application
-var start = await sessionService.StartAsync(questionCount: 3);
+var start = await sessionService.StartAsync(questionCount: numberOfQuestions);
+
+Console.WriteLine("Quiz startat!");
+Console.WriteLine($"SessionId: {start.SessionId}");
+Console.WriteLine($"Antal frågor: {start.Questions.Count}");
+Console.WriteLine();
 
 // UI-loop (Console-only)
-var score = 0;
 var asked = 0;
 
 foreach (var question in start.Questions)
@@ -55,12 +56,12 @@ foreach (var question in start.Questions)
     // Registrera svar i applikationen (handlers via SessionService)
     var answerResult = await sessionService.AnswerAsync(start.SessionId, question.Code, selectedCode);
 
-    System.Console.WriteLine(answerResult.IsCorrect ? "✔ Rätt!" : "✖ Fel.");
-    if (answerResult.IsCorrect) score++;
-    System.Console.WriteLine();
+    Console.WriteLine(answerResult.IsCorrect ? "✔ Rätt!" : "✖ Fel.");
+    Console.WriteLine($"Poäng just nu: {answerResult.Score}");
+    Console.WriteLine();
 }
 
 var finished = await sessionService.FinishAsync(start.SessionId);
-System.Console.WriteLine($"Klart! Poäng: {finished.Score}/{finished.AnsweredCount}");
-System.Console.WriteLine("Tryck valfri tangent för att avsluta...");
-System.Console.ReadKey(intercept: true);
+Console.WriteLine($"Klart! Poäng: {finished.Score}/{finished.AnsweredCount}");
+Console.WriteLine("Tryck valfri tangent för att avsluta...");
+Console.ReadKey(intercept: true);
