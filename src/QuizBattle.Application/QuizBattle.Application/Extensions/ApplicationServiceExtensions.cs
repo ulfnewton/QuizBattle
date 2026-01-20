@@ -14,9 +14,9 @@ namespace QuizBattle.Application.Extensions
             services.AddSingleton<IQuestionService, QuestionService>();
             services.AddSingleton<ISessionService, SessionService>();
 
-            services.AddScoped<StartQuizHandler>();
-            services.AddScoped<AnswerQuestionHandler>();
-            services.AddScoped<FinishQuizHandler>();
+            //services.AddScoped<StartQuizHandler>();
+            //services.AddScoped<AnswerQuestionHandler>();
+            //services.AddScoped<FinishQuizHandler>();
 
             return services;
         }
