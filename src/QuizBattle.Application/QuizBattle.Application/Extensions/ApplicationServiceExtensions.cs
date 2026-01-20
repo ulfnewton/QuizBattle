@@ -14,9 +14,11 @@ namespace QuizBattle.Application.Extensions
             services.AddSingleton<IQuestionService, QuestionService>();
             services.AddSingleton<ISessionService, SessionService>();
 
-            //services.AddScoped<StartQuizHandler>();
-            //services.AddScoped<AnswerQuestionHandler>();
-            //services.AddScoped<FinishQuizHandler>();
+            //använd ctrl+k och sedan direkt ctrl+u för att avkommentera markerad kod
+            //använd ctrl+k och sedan direkt ctrl+c för att kommentera markerad kod
+            services.AddScoped<StartQuizHandler>();
+            services.AddScoped<AnswerQuestionHandler>();
+            services.AddScoped<FinishQuizHandler>();
 
             return services;
         }
