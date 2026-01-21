@@ -1,4 +1,4 @@
-﻿using QuizBattle.Application.Features.AnswerQuestion;
+using QuizBattle.Application.Features.AnswerQuestion;
 using QuizBattle.Application.Features.FinishSession;
 using QuizBattle.Application.Features.StartSession;
 using QuizBattle.Application.Interfaces;
@@ -32,7 +32,7 @@ namespace QuizBattle.Application.Services
             CancellationToken ct = default)
         {
             var cmd = new StartQuizCommand(questionCount, category, difficulty);
-            return _start.Handle(cmd, ct);
+            return _start.HandleAsync(cmd, ct);
         }
 
         public Task<AnswerQuestionResult> AnswerAsync(
@@ -42,13 +42,13 @@ namespace QuizBattle.Application.Services
             CancellationToken ct = default)
         {
             var cmd = new AnswerQuestionCommand(sessionId, questionCode, selectedChoiceCode);
-            return _answer.Handle(cmd, ct);
+            return _answer.HandleAsync(cmd, ct);
         }
 
         public Task<FinishQuizResult> FinishAsync(Guid sessionId, CancellationToken ct = default)
         {
             var cmd = new FinishQuizCommand(sessionId);
-            return _finish.Handle(cmd, ct);
+            return _finish.HandleAsync(cmd, ct);
         }
     }
 }
