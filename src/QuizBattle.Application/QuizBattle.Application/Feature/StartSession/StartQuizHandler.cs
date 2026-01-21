@@ -5,36 +5,39 @@ namespace QuizBattle.Application.Features.StartSession
 {
     public class StartQuizHandler
     {
-        private readonly IQuestionRepository _questions;
+        private readonly IQuestionService _questionService;
         private readonly ISessionRepository _sessions;
 
-        public StartQuizHandler(IQuestionRepository questions, ISessionRepository sessions)
+        public StartQuizHandler(IQuestionService questionService, ISessionRepository sessions)
         {
-            _questions = questions;
+            _questionService = questionService;
             _sessions = sessions;
         }
 
-        public async Task<StartQuizResult> Handle(StartQuizCommand cmd)
+        public async Task<StartQuizResult> HandleAsync(StartQuizCommand cmd, CancellationToken ct = default)
         {
             try
             {
-                // Hämtar alla frågor och slumpar dem med LINQ, smidigt sätt att få unika frågor
-                var allQuestions = await _questions.GetAllAsync(default);
-
-                var picked = allQuestions
-                    .OrderBy(x => Guid.NewGuid())
-                    .Take(cmd.QuestionCount)
-                    .ToList();
+                var questions = await _questionService.GetRandomQuestionsAsync(
+                    count: cmd.QuestionCount,
+                    category: cmd.Category,
+                    difficulty: cmd.Difficulty,
+                    ct: ct);
 
                 var session = QuizSession.Create(cmd.QuestionCount);
 
-                // Använder Update för att spara den nya sessionen
-                await _sessions.UpdateAsync(session, default);
+                await _sessions.SaveAsync(session, ct);
 
-                return new StartQuizResult(true, session.Id, picked);
+                return new StartQuizResult(true, session.Id, questions.ToList());
             }
-            catch (Exception ex)
+            catch (DomainException ex)
             {
+                // Domänfel (t.ex. det finns inte tillräckligt många frågor att ställa)
+                return StartQuizResult.Fail(ex.Message);
+            }
+            catch(ArgumentNullException ex)
+            {
+                // Validerings fel (t.ex. session är null)
                 return StartQuizResult.Fail(ex.Message);
             }
         }

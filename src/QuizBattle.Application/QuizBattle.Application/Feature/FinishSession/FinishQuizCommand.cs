@@ -1,4 +1,4 @@
 namespace QuizBattle.Application.Features.FinishSession
 {
-    public record FinishQuizCommand(Guid SessionId);
+    public sealed record FinishQuizCommand(Guid SessionId);
 }

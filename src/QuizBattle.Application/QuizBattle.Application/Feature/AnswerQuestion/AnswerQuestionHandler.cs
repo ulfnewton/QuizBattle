@@ -1,4 +1,5 @@
 using QuizBattle.Application.Interfaces;
+using QuizBattle.Domain;
 
 namespace QuizBattle.Application.Features.AnswerQuestion
 {
@@ -9,16 +10,15 @@ namespace QuizBattle.Application.Features.AnswerQuestion
 
         public AnswerQuestionHandler(ISessionRepository sessions, IQuestionRepository questions)
         {
-            // Standard null-checkar
-            if (sessions == null) throw new ArgumentNullException(nameof(sessions));
-            if (questions == null) throw new ArgumentNullException(nameof(questions));
-            _sessions = sessions;
-            _questions = questions;
+            _sessions = sessions ?? throw new ArgumentNullException(nameof(sessions));
+            _questions = questions ?? throw new ArgumentNullException(nameof(questions));
         }
 
-        public async Task<AnswerQuestionResult> Handle(AnswerQuestionCommand cmd)
+        public async Task<AnswerQuestionResult> HandleAsync(AnswerQuestionCommand cmd, CancellationToken ct = default)
         {
-            // Kollar om ID är tomt innan vi kör
+            // null-check
+            ArgumentNullException.ThrowIfNull(cmd, nameof(cmd));
+
             if (cmd.SessionId == Guid.Empty)
             {
                 return AnswerQuestionResult.Fail(cmd.SessionId, cmd.QuestionCode, "SessionId får inte vara tomt.");
@@ -26,19 +26,17 @@ namespace QuizBattle.Application.Features.AnswerQuestion
 
             try
             {
-                var session = await _sessions.GetByIdAsync(cmd.SessionId, default);
+                var session = await _sessions.GetByIdAsync(cmd.SessionId, ct);
                 if (session == null)
                 {
                     return AnswerQuestionResult.Fail(cmd.SessionId, cmd.QuestionCode, "Sessionen saknas.");
                 }
 
-                var question = await _questions.GetByCodeAsync(cmd.QuestionCode, default);
+                var question = await _questions.GetByCodeAsync(cmd.QuestionCode, ct);
 
-                // Kör på UtcNow direkt här för enkelhetens skull
                 session.SubmitAnswer(question, cmd.SelectedChoiceCode, DateTime.UtcNow);
 
-                // Sparar ner ändringarna till databasen
-                await _sessions.UpdateAsync(session, default);
+                await _sessions.SaveAsync(session, ct);
 
                 return new AnswerQuestionResult(
                     true,
@@ -47,9 +45,14 @@ namespace QuizBattle.Application.Features.AnswerQuestion
                     question.IsCorrect(cmd.SelectedChoiceCode)
                 );
             }
-            catch (Exception ex)
+            catch (DomainException ex)
             {
-                // Om något smäller returnerar vi bara meddelandet
+                // Domänfel
+                return AnswerQuestionResult.Fail(cmd.SessionId, cmd.QuestionCode, ex.Message);
+            }
+            catch (ArgumentNullException ex)
+            {
+                // Valideringsfel
                 return AnswerQuestionResult.Fail(cmd.SessionId, cmd.QuestionCode, ex.Message);
             }
         }
