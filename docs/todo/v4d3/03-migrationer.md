@@ -11,18 +11,12 @@ Skapa första migrationen och materialisera SQLite‑databas.
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
-public sealed partial class QuizBattleDbContext
+public QuizBattleDbContext CreateDbContext(string[] args)
 {
-    public class QuizBattleContextFactory: IDesignTimeDbContextFactory<QuizBattleDbContext>
-    {
-        public QuizBattleDbContext CreateDbContext(string[] args)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<QuizBattleDbContext>();
-            optionsBuilder.UseSqlite("Data Source=QuizBattle.db");
+    var optionsBuilder = new DbContextOptionsBuilder<QuizBattleDbContext>();
+    optionsBuilder.UseSqlite("Data Source=QuizBattle.db");
 
-            return new QuizBattleDbContext(optionsBuilder.Options);
-        }
-    }
+    return new QuizBattleDbContext(optionsBuilder.Options);
 }
 ```
 

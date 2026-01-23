@@ -67,6 +67,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "V4", "V4", "{9DA784AE-7BBC-
 		docs\todo\v4d3\12-crud-quickref.md = docs\todo\v4d3\12-crud-quickref.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizBattle.Api", "src\QuizBattle.Api\QuizBattle.Api.csproj", "{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -137,6 +139,18 @@ Global
 		{C694E60B-4C67-49F0-86D9-6D1E5E61F49B}.Release|x64.Build.0 = Release|Any CPU
 		{C694E60B-4C67-49F0-86D9-6D1E5E61F49B}.Release|x86.ActiveCfg = Release|Any CPU
 		{C694E60B-4C67-49F0-86D9-6D1E5E61F49B}.Release|x86.Build.0 = Release|Any CPU
+		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}.Debug|x64.Build.0 = Debug|Any CPU
+		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}.Debug|x86.Build.0 = Debug|Any CPU
+		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}.Release|x64.ActiveCfg = Release|Any CPU
+		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}.Release|x64.Build.0 = Release|Any CPU
+		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}.Release|x86.ActiveCfg = Release|Any CPU
+		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -153,6 +167,7 @@ Global
 		{6C37CF04-06BD-4B39-9009-86B6B462F662} = {C9AB0E24-F730-4B29-9308-8D74900AC2D5}
 		{16D00592-3805-4B91-856D-A12AE834436D} = {C9AB0E24-F730-4B29-9308-8D74900AC2D5}
 		{9DA784AE-7BBC-49A2-B069-9E83D7111D66} = {C9AB0E24-F730-4B29-9308-8D74900AC2D5}
+		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {993931F4-7127-4F03-B7AD-ED9CAF243ECC}
