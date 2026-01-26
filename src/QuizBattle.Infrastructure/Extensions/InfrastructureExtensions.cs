@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 using QuizBattle.Application.Interfaces;
+using QuizBattle.Infrastructure.Data;
 using QuizBattle.Infrastructure.Repositories;
 
 namespace QuizBattle.Infrastructure.Extensions
@@ -18,6 +19,13 @@ namespace QuizBattle.Infrastructure.Extensions
             services.AddSingleton<ISessionRepository, InMemorySessionRepository>();
 
             return services;
+        }
+
+        public static async Task SeedDatabaseAsync(this IServiceProvider serviceProvider, CancellationToken ct = default)
+        {
+            using var scope = serviceProvider.CreateScope();
+            var context = scope.ServiceProvider.GetRequiredService<QuizBattleDbContext>();
+            await QuizBattleDbSeeder.SeedAsync(context, ct);
         }
     }
 }
