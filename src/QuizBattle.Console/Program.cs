@@ -1,11 +1,3 @@
-using Microsoft.Extensions.DependencyInjection;
-using QuizBattle.Application.Extensions;
-using QuizBattle.Application.Interfaces;
-using QuizBattle.Application.Services;
-using QuizBattle.Console.Extensions;
-using QuizBattle.Console.Presentation;
-using QuizBattle.Infrastructure.Extensions;
-
 const int numberOfQuestions = 3;
 
 // konfigurera dependency injection (DI) in konsol
@@ -55,12 +47,12 @@ foreach (var question in start.Questions)
     // Registrera svar i applikationen (handlers via SessionService)
     var answerResult = await sessionService.AnswerAsync(start.SessionId, question.Code, selectedCode);
 
-    System.Console.WriteLine(answerResult.IsCorrect ? "✔ Rätt!" : "✖ Fel.");
+    Console.WriteLine(answerResult.IsCorrect ? "✔ Rätt!" : "✖ Fel.");
     if (answerResult.IsCorrect) score++;
-    System.Console.WriteLine();
+    Console.WriteLine();
 }
 
 var finished = await sessionService.FinishAsync(start.SessionId);
-System.Console.WriteLine($"Klart! Poäng: {finished.Score}/{finished.AnsweredCount}");
-System.Console.WriteLine("Tryck valfri tangent för att avsluta...");
-System.Console.ReadKey(intercept: true);
+Console.WriteLine($"Klart! Poäng: {finished.Score}/{finished.AnsweredCount}");
+Console.WriteLine("Tryck valfri tangent för att avsluta...");
+Console.ReadKey(intercept: true);
