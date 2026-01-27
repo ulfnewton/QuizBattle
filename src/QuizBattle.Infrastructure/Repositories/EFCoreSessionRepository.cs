@@ -21,7 +21,9 @@ namespace QuizBattle.Infrastructure.Repositories
             //return session;
 
             return await _sessions.Where(session => session.Id == id)
+                                  .AsNoTracking()
                                   .Include(session => session.Answers)
+                                  .ThenInclude(answer => answer.Question)
                                   .FirstOrDefaultAsync(ct);
         }
 

@@ -1,0 +1,21 @@
+### Root 
+GET https://localhost:7079/
+Accept-Charset: utf-16
+
+### Start session
+POST http://localhost:5280/api/sessions
+Content-Type: application/json
+
+{ "questionCount": 3 }
+
+### Answer question (replace {SESSION_ID} and codes)
+POST http://localhost:5280/api/sessions/{SESSION_ID}/answers
+Content-Type: application/json
+
+{ "QuestionCode": "Q.CS.001", "SelectedChoiceCode": "Q.CS.001.B" }
+
+### Finish session
+POST http://localhost:5280/api/sessions/{SESSION_ID}/finish
+
+### Get random questions
+GET http://localhost:5280/api/questions/random?count=3
