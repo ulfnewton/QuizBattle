@@ -18,6 +18,8 @@ services.AddInfrastructureRepositories()    // Definierad i QuizBattle.Infrastru
 // bygg en service provider
 var provider = services.BuildServiceProvider();
 
+await provider.SeedDatabaseAsync();
+
 // skapa ett nytt scope för den här applikationen
 using var scope = provider.CreateScope();
 

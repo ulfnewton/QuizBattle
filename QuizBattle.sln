@@ -69,6 +69,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "V4", "V4", "{9DA784AE-7BBC-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizBattle.Api", "src\QuizBattle.Api\QuizBattle.Api.csproj", "{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuizBattle.Web.Test", "src\QuizBattle.Web.Test\QuizBattle.Web.Test.csproj", "{29A9B01C-2165-C9EA-4056-B04A2D2CC601}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,6 +153,18 @@ Global
 		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}.Release|x64.Build.0 = Release|Any CPU
 		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}.Release|x86.ActiveCfg = Release|Any CPU
 		{24FBC78E-D6E8-43A4-9702-DDFBDCA5E588}.Release|x86.Build.0 = Release|Any CPU
+		{29A9B01C-2165-C9EA-4056-B04A2D2CC601}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29A9B01C-2165-C9EA-4056-B04A2D2CC601}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29A9B01C-2165-C9EA-4056-B04A2D2CC601}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{29A9B01C-2165-C9EA-4056-B04A2D2CC601}.Debug|x64.Build.0 = Debug|Any CPU
+		{29A9B01C-2165-C9EA-4056-B04A2D2CC601}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{29A9B01C-2165-C9EA-4056-B04A2D2CC601}.Debug|x86.Build.0 = Debug|Any CPU
+		{29A9B01C-2165-C9EA-4056-B04A2D2CC601}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29A9B01C-2165-C9EA-4056-B04A2D2CC601}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29A9B01C-2165-C9EA-4056-B04A2D2CC601}.Release|x64.ActiveCfg = Release|Any CPU
+		{29A9B01C-2165-C9EA-4056-B04A2D2CC601}.Release|x64.Build.0 = Release|Any CPU
+		{29A9B01C-2165-C9EA-4056-B04A2D2CC601}.Release|x86.ActiveCfg = Release|Any CPU
+		{29A9B01C-2165-C9EA-4056-B04A2D2CC601}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

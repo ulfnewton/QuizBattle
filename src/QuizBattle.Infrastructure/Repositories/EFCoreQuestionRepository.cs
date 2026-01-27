@@ -11,21 +11,21 @@ namespace QuizBattle.Infrastructure.Repositories
 {
     public class EFCoreQuestionRepository: IQuestionRepository
     {
-        private readonly QuizBattleDbContext _context;
+        private readonly QuizBattleDbContext _context; // används inte och kan tas bort
         private readonly DbSet<Question> _questions;
 
         public EFCoreQuestionRepository(QuizBattleDbContext context)
         {
-            _context = context;
+            _context = context; // används inte och kan tas bort
             _questions = _context.Questions;
         }
 
         public async Task<IReadOnlyList<Question>> GetAllAsync(CancellationToken ct = default)
         {
             return await _questions
+                .AsNoTracking()     // Ignorera change tracking
                 .Include(question => question.Choices)
                 .Include(question => question.Answers)
-                .AsNoTracking()     // Ignorera change tracking
                 .ToListAsync(ct);
         }
 
@@ -54,14 +54,29 @@ namespace QuizBattle.Infrastructure.Repositories
             }
 
             // hämta exakt count antal Question
-            query = query.OrderBy(question => new Random().NextInt64())
-            //EF.Property<int>(new Random().NextInt64(), "random"))
-                         .Take(count);
+            query = query.OrderBy(question => EF.Functions.Random())
+                         .AsNoTracking()
+                         .Take(count)
+                         .Include(question => question.Choices)
+                         .Include(question => question.Answers);
+
             return await query.ToListAsync(ct);
         }
 
         public async Task<Question?> GetByCodeAsync(string code, CancellationToken ct)
-            => throw new NotImplementedException();
+        {
+            if (string.IsNullOrWhiteSpace(code))
+            {
+                throw new ArgumentException("Code can not be null or contain only whitespace.", nameof(code));
+            }
+
+            var query = _questions.Where(question => question.Code == code)
+                         .AsNoTracking()
+                         .Include(question => question.Choices)
+                         .Include(question => question.Answers);
+
+            return await query.FirstOrDefaultAsync(ct);
+        }
 
         private bool IsSameCategory(string category, Question question)
         {
