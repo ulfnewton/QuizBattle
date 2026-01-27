@@ -15,8 +15,8 @@ namespace QuizBattle.Infrastructure.Extensions
             services.AddDbContext<QuizBattleDbContext>(optionsBuilder =>
                 optionsBuilder.UseSqlite("Data Source=quizbattle.db"));
 
-            services.AddSingleton<IQuestionRepository, InMemoryQuestionRepository>();
-            services.AddSingleton<ISessionRepository, InMemorySessionRepository>();
+            services.AddScoped<IQuestionRepository, EFCoreQuestionRepository>();
+            services.AddScoped<ISessionRepository, InMemorySessionRepository>();
 
             return services;
         }

@@ -11,8 +11,8 @@ namespace QuizBattle.Application.Extensions
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddSingleton<IQuestionService, QuestionService>();
-            services.AddSingleton<ISessionService, SessionService>();
+            services.AddScoped<IQuestionService, QuestionService>();
+            services.AddScoped<ISessionService, SessionService>();
 
             //använd ctrl+k och sedan direkt ctrl+u för att avkommentera markerad kod
             //använd ctrl+k och sedan direkt ctrl+c för att kommentera markerad kod

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace QuizBattle.Infrastructure.Migrations
 {
     [DbContext(typeof(QuizBattleDbContext))]
-    [Migration("20260123110617_InitialCreate")]
+    [Migration("20260127092521_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -31,6 +31,9 @@ namespace QuizBattle.Infrastructure.Migrations
                     b.Property<int>("QuestionId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<Guid?>("QuizSessionId")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("SelectedChoiceCode")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -38,6 +41,8 @@ namespace QuizBattle.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("QuestionId");
+
+                    b.HasIndex("QuizSessionId");
 
                     b.ToTable("Answers");
                 });
@@ -95,6 +100,26 @@ namespace QuizBattle.Infrastructure.Migrations
                     b.ToTable("Questions");
                 });
 
+            modelBuilder.Entity("QuizBattle.Domain.QuizSession", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("FinishedAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("QuestionCount")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("StartedAtUtc")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Sessions");
+                });
+
             modelBuilder.Entity("QuizBattle.Domain.Answer", b =>
                 {
                     b.HasOne("QuizBattle.Domain.Question", "Question")
@@ -102,6 +127,10 @@ namespace QuizBattle.Infrastructure.Migrations
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("QuizBattle.Domain.QuizSession", null)
+                        .WithMany("Answers")
+                        .HasForeignKey("QuizSessionId");
 
                     b.Navigation("Question");
                 });
@@ -122,6 +151,11 @@ namespace QuizBattle.Infrastructure.Migrations
                     b.Navigation("Answers");
 
                     b.Navigation("Choices");
+                });
+
+            modelBuilder.Entity("QuizBattle.Domain.QuizSession", b =>
+                {
+                    b.Navigation("Answers");
                 });
 #pragma warning restore 612, 618
         }

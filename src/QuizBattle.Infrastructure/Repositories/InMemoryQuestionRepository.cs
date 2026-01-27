@@ -1,4 +1,4 @@
-﻿using QuizBattle.Application.Interfaces;
+using QuizBattle.Application.Interfaces;
 using QuizBattle.Domain;
 
 namespace QuizBattle.Infrastructure.Repositories
